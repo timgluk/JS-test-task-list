@@ -1,6 +1,3 @@
-const TaskName = document.querySelector('.task_name');
-let subTaskTitle;
-let subTaskHours;
 
 
 function SubTask(title, hours) {
@@ -8,29 +5,45 @@ function SubTask(title, hours) {
   this.hours = hours;
 };
 
-const btn = document.querySelector('.create_task');
-
-
-
-btn.onclick = () => {
-  subTaskTitle = document.getElementById('subtask-name').value;
-  subTaskHours = document.querySelector('.subtask_hours').value;
-  //console.log(subTask);
-  //return subTask;
-  let subTask = new SubTask(subTaskTitle, subTaskHours);
-  console.log(subTask);
-};
-
 function Task(title) {
   this.title = title;
   this.subTaskList = [];
   this.addSubTask = function(subTask) {
-   this.subTaskList.push(subTask);
+    this.subTaskList.push(subTask);
   };
 };
 
 const taskList = [];
-const addTask = () => {};
+
+const btnSubTaskCreate = document.querySelector('.create_subtask');
+
+btnSubTaskCreate.onclick = () => {
+  let createInputSubTask = document.createElement('div');
+  createInputSubTask.innerHTML = 
+`<input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
+<input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
+<input type="button" value="удалить подзадачу">`;
+
+  div.after(createInputSubTask);
+}
+
+const btnTaskCreate = document.querySelector('.create_task');
+/* 
+  создаёт задачу
+  создаёт подзадачу
+*/
+btnTaskCreate.onclick = () => {
+  let taskName = document.querySelector('.task_name').value;
+  let subTaskTitle = document.getElementById('subtask-name').value;
+  let subTaskHours = document.querySelector('.subtask_hours').value;
+  let subTask = new SubTask(subTaskTitle, subTaskHours);
+  console.log(subTask);
+  let task = new Task (taskName);
+  task.addSubTask(subTask);
+  console.log(task);
+  taskList.push(task);
+  console.log(taskList);
+};
 
 
 
