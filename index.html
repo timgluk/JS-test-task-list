@@ -8,14 +8,14 @@
   <title>Document</title>
 </head>
 <body>
-  <section class="task">
+  <form class="task">
     <h1 class="title">Создание задачи</h1>
-    <input class="task_name" type="text" value="имя задачи">
+    <input class="task_name" type="text" placeholder="имя задачи">
     <input class="create_subtask" type="button" value="добавить подзадачу">
-    <input class="subtask_name" type="text" value="имя подзадачи">
-    <input class="subtask_hours" type="text" value="кол-во часов">
+    <input class="subtask_name" id="subtask-name" type="text" placeholder="имя подзадачи" >
+    <input class="subtask_hours" type="text" placeholder="кол-во часов" >
     <input class="create_task" type="button" value="сохранить задачу">
-  </section>
+  </form>
 </body>
 <script src="./script.js"></script>
 </html>
