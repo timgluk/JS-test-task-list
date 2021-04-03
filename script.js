@@ -22,9 +22,8 @@ btnSubTaskCreate.onclick = () => {
   createInputSubTask.innerHTML = 
 `<input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
 <input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
-<input type="button" value="удалить подзадачу">`;
-
-  div.after(createInputSubTask);
+<input class="delete_subTask" type="button" value="удалить подзадачу">`;
+  div.append(createInputSubTask);
 }
 
 const btnTaskCreate = document.querySelector('.create_task');
@@ -32,12 +31,27 @@ const btnTaskCreate = document.querySelector('.create_task');
   создаёт задачу
   создаёт подзадачу
 */
+//let subTaskTitle = [];
+//const subTaskHours = [];
+
+
 btnTaskCreate.onclick = () => {
   let taskName = document.querySelector('.task_name').value;
-  let subTaskTitle = document.getElementById('subtask-name').value;
-  let subTaskHours = document.querySelector('.subtask_hours').value;
-  let subTask = new SubTask(subTaskTitle, subTaskHours);
+  let subTaskTitle = document.querySelectorAll('.subtask_name');
+  let subTaskHours = document.querySelectorAll('.subtask_hours');
+  const subTaskTitleValue = [];
+  const subTaskHoursValue = [];
+  for (i = 0; i < subTaskTitle.length; i++) {
+    subTaskTitleValue[i] = subTaskTitle[i].value;
+    subTaskHoursValue[i] = Number(subTaskHours[i].value);
+  }
+  console.log(subTaskTitle);
+  console.log(subTaskTitleValue);
+  console.log(subTaskHoursValue);
+  
+  let subTask = new SubTask(subTaskTitleValue, subTaskHoursValue);
   console.log(subTask);
+
   let task = new Task (taskName);
   task.addSubTask(subTask);
   console.log(task);

@@ -10,12 +10,18 @@
 <body>
   <form class="task">
     <h1 class="title">Создание задачи</h1>
-    <input class="task_name" type="text" placeholder="имя задачи">
+    <input class="task_name" type="text" placeholder="имя задачи" value="task">
     <input class="create_subtask" type="button" value="добавить подзадачу">
-    <input class="subtask_name" id="subtask-name" type="text" placeholder="имя подзадачи" >
-    <input class="subtask_hours" type="text" placeholder="кол-во часов" >
+    <div id="div">
+    <input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
+    <input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
+    <input class="delete_subTask" type="button" value="удалить подзадачу">
+    </div>
     <input class="create_task" type="button" value="сохранить задачу">
   </form>
+  <section>
+    <h1>Список задач</h1>
+  </section>
 </body>
 <script src="./script.js"></script>
 </html>
