@@ -19,21 +19,20 @@ const btnSubTaskCreate = document.querySelector('.create_subtask');
 
 btnSubTaskCreate.onclick = () => {
   let createInputSubTask = document.createElement('div');
+  createInputSubTask.className = 'new_div'
   createInputSubTask.innerHTML = 
-`<input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
-<input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
-<input class="delete_subTask" type="button" value="удалить подзадачу">`;
+  `<input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
+  <input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
+  <input class="delete_subTask" id="butt_del" type="button" value="удалить подзадачу">`;
   div.append(createInputSubTask);
-}
+  
+  let delEl = createInputSubTask.querySelector('.delete_subTask');
+
+  //let newDiv = document.querySelector('.new_div');
+  delEl.addEventListener('click', () => createInputSubTask.remove());
+};
 
 const btnTaskCreate = document.querySelector('.create_task');
-/* 
-  создаёт задачу
-  создаёт подзадачу
-*/
-//let subTaskTitle = [];
-//const subTaskHours = [];
-
 
 btnTaskCreate.onclick = () => {
   let taskName = document.querySelector('.task_name').value;
@@ -41,27 +40,33 @@ btnTaskCreate.onclick = () => {
   let subTaskHours = document.querySelectorAll('.subtask_hours');
   const subTaskTitleValue = [];
   const subTaskHoursValue = [];
+  const subTask = [];
+  let task = new Task (taskName);
   for (i = 0; i < subTaskTitle.length; i++) {
     subTaskTitleValue[i] = subTaskTitle[i].value;
     subTaskHoursValue[i] = Number(subTaskHours[i].value);
-  }
-  console.log(subTaskTitle);
+    subTask[i] = new SubTask(subTaskTitleValue[i], subTaskHoursValue[i]);
+    task.addSubTask(subTask[i]);
+  };
   console.log(subTaskTitleValue);
   console.log(subTaskHoursValue);
   
-  let subTask = new SubTask(subTaskTitleValue, subTaskHoursValue);
+  //let subTask = new SubTask(subTaskTitleValue, subTaskHoursValue);
   console.log(subTask);
 
-  let task = new Task (taskName);
-  task.addSubTask(subTask);
   console.log(task);
   taskList.push(task);
   console.log(taskList);
+  
+  let putTolinkList = document.getElementById('task_list_title');
+  
+  let createLink = document.createElement('a');
+  for (i = 0; i < taskList.length; i++) {
+    createLink.href = taskList[i].title;
+    putTolinkList.append(createLink);
+  };
+  
 };
-
-
-
-
 
 
 //let subTask98769876 = new SubTask('новая ' + 'подзадача', 1);
