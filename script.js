@@ -1,5 +1,4 @@
 
-
 function SubTask(title, hours) {
   this.title = title;
   this.hours = hours;
@@ -30,6 +29,13 @@ btnSubTaskCreate.onclick = () => {
 
   delEl.addEventListener('click', () => createInputSubTask.remove());
 };
+
+const btnDelete = document.querySelector('.del');
+btnDelete.onclick = () => {
+  document.querySelector('.task').reset();
+  [...document.querySelectorAll('.new_div')].forEach(elem => elem.remove());
+};
+
 
 const btnTaskCreate = document.querySelector('.create_task');
 
