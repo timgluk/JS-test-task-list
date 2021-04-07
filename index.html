@@ -10,7 +10,7 @@
 <body>
   <form class="task">
     <h1 class="title">Создание задачи</h1>
-    <input class="create_task_name" type="button" value="создать">
+    <input class="create_task_name" type="button" value="очистить">
     <input class="task_name" type="text" placeholder="имя задачи" value="task">
     <input class="create_subtask" type="button" value="добавить подзадачу">
     <div id="div">
@@ -21,7 +21,14 @@
     <input class="create_task" type="button" value="сохранить задачу">
   </form>
   <section>
-    <h1 id="task_list_title">Список задач</h1>
+    <h1>Список задач</h1>
+    <ul id="task_list_title">
+
+    </ul>
+  </section>
+  <section>
+    <h1 >Выбранная задача</h1>
+    <div class="subtask_list_title"></div>
   </section>
 </body>
 <script src="./script.js"></script>

@@ -28,46 +28,50 @@ btnSubTaskCreate.onclick = () => {
   
   let delEl = createInputSubTask.querySelector('.delete_subTask');
 
-  //let newDiv = document.querySelector('.new_div');
   delEl.addEventListener('click', () => createInputSubTask.remove());
 };
 
 const btnTaskCreate = document.querySelector('.create_task');
 
-btnTaskCreate.onclick = () => {
-  let taskName = document.querySelector('.task_name').value;
-  let subTaskTitle = document.querySelectorAll('.subtask_name');
-  let subTaskHours = document.querySelectorAll('.subtask_hours');
-  const subTaskTitleValue = [];
-  const subTaskHoursValue = [];
-  const subTask = [];
-  let task = new Task (taskName);
-  for (i = 0; i < subTaskTitle.length; i++) {
-    subTaskTitleValue[i] = subTaskTitle[i].value;
-    subTaskHoursValue[i] = Number(subTaskHours[i].value);
-    subTask[i] = new SubTask(subTaskTitleValue[i], subTaskHoursValue[i]);
-    task.addSubTask(subTask[i]);
-  };
-  console.log(subTaskTitleValue);
-  console.log(subTaskHoursValue);
-  
-  //let subTask = new SubTask(subTaskTitleValue, subTaskHoursValue);
-  console.log(subTask);
+let putTolinkList = document.getElementById('task_list_title');
 
-  console.log(task);
+btnTaskCreate.onclick = () => {
+  let taskTitle = document.querySelector('.task_name').value;
+  let subTaskTitles = [...document.querySelectorAll('.subtask_name')].map(elem => elem.value);
+  let subTaskHours = [...document.querySelectorAll('.subtask_hours')].map(elem => +elem.value);
+
+  const task = createTask(taskTitle, subTaskTitles, subTaskHours);
   taskList.push(task);
-  console.log(taskList);
-  
-  let putTolinkList = document.getElementById('task_list_title');
-  
-  let createLink = document.createElement('a');
+
+  let listItem = document.createElement('li');
   for (i = 0; i < taskList.length; i++) {
-    createLink.href = taskList[i].title;
-    putTolinkList.append(createLink);
+    listItem.innerHTML = `<a href="#" onclick="event.preventDefault()">${taskList[i].title}</a>`;
+    putTolinkList.append(listItem);
   };
-  
+
+  listItem.addEventListener('click', function() {
+    let subTaskListTitle = document.querySelector('.subtask_list_title');
+    let subTaskListScrin = document.createElement('div');
+    subTaskListScrin.className = 'subtask_list_title';
+    subTaskListScrin.innerHTML =  `<h2>${task.title}</h2><ul>`;
+    for (const subTask of task.subTaskList) {
+      subTaskListScrin.innerHTML += `<li>${subTask.title}</li>`;
+    }
+    subTaskListScrin.innerHTML += '</ul>'
+    subTaskListTitle.replaceWith(subTaskListScrin);
+  });
+
 };
 
+function createTask(title, subTaskTitles, subTaskHours) {
+  let task = new Task(title);
+  for (i = 0; i < subTaskTitles.length; i++) {
+    const subTask = new SubTask(subTaskTitles[i], subTaskHours[i]);
+    task.addSubTask(subTask);
+  };
+
+  return task;
+}
 
 //let subTask98769876 = new SubTask('новая ' + 'подзадача', 1);
 
