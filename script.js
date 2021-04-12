@@ -6,13 +6,13 @@ function SubTask(title, hours) {
 
 function Task(title) {
   this.title = title;
-  this.subTaskList = [];
+  this.subTasks = [];
   this.addSubTask = function(subTask) {
-    this.subTaskList.push(subTask);
+    this.subTasks.push(subTask);
   };
 };
 
-const taskList = [];
+const taskList = JSON.parse(localStorage.getItem('taskList')) ?? [];
 
 const btnSubTaskCreate = document.querySelector('.create_subtask');
 
@@ -24,18 +24,11 @@ btnSubTaskCreate.onclick = () => {
   <input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
   <input class="delete_subTask" id="butt_del" type="button" value="удалить подзадачу">`;
   div.append(createInputSubTask);
-  
   let delEl = createInputSubTask.querySelector('.delete_subTask');
-
   delEl.addEventListener('click', () => createInputSubTask.remove());
 };
 
 const btnDelete = document.querySelector('.del');
-btnDelete.onclick = () => {
-  document.querySelector('.task').reset();
-  [...document.querySelectorAll('.new_div')].forEach(elem => elem.remove());
-};
-
 
 const btnTaskCreate = document.querySelector('.create_task');
 
@@ -45,28 +38,9 @@ btnTaskCreate.onclick = () => {
   let taskTitle = document.querySelector('.task_name').value;
   let subTaskTitles = [...document.querySelectorAll('.subtask_name')].map(elem => elem.value);
   let subTaskHours = [...document.querySelectorAll('.subtask_hours')].map(elem => +elem.value);
-
   const task = createTask(taskTitle, subTaskTitles, subTaskHours);
   taskList.push(task);
-
-  let listItem = document.createElement('li');
-  for (i = 0; i < taskList.length; i++) {
-    listItem.innerHTML = `<a href="#" onclick="event.preventDefault()">${taskList[i].title}</a>`;
-    putTolinkList.append(listItem);
-  };
-
-  listItem.addEventListener('click', function() {
-    let subTaskListTitle = document.querySelector('.subtask_list_title');
-    let subTaskListScrin = document.createElement('div');
-    subTaskListScrin.className = 'subtask_list_title';
-    subTaskListScrin.innerHTML =  `<h2>${task.title}</h2><ul>`;
-    for (const subTask of task.subTaskList) {
-      subTaskListScrin.innerHTML += `<li>${subTask.title}</li>`;
-    }
-    subTaskListScrin.innerHTML += '</ul>'
-    subTaskListTitle.replaceWith(subTaskListScrin);
-  });
-
+  displayTask(task);
 };
 
 function createTask(title, subTaskTitles, subTaskHours) {
@@ -77,23 +51,33 @@ function createTask(title, subTaskTitles, subTaskHours) {
   };
 
   return task;
-}
+};
 
-//let subTask98769876 = new SubTask('новая ' + 'подзадача', 1);
+function displayTask(task) {
+  let listItem = document.createElement('li');
+  listItem.className = 'list_item';
+  listItem.innerHTML = `<a href="#" onclick="event.preventDefault()">${task.title}</a>`;
+  putTolinkList.append(listItem);
+  listItem.addEventListener('click', function() {
+    let subTaskListTitle = document.querySelector('.subtask_list_title');
+    let subTaskListScrin = document.createElement('div');
+    subTaskListScrin.className = 'subtask_list_title';
+    subTaskListScrin.innerHTML = 
+      `<h2>${task.title}</h2>
+      <ul>
+        ${task.subTasks.map(subTask => `<li>${subTask.title}. Потребуется - ${subTask.hours} часов</li>`).join('')}
+      </ul>`;
+    subTaskListTitle.replaceWith(subTaskListScrin);
+  });
+};
 
-//let task = new Task('новая задача');
-//let task2 = new Task('вторая задача');
+taskList.forEach(displayTask);
 
-//task.addSubTask();
-//console.log(task.title);
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('taskList', JSON.stringify(taskList));
+});
 
-//task2.addSubTask(new SubTask('yjjhkjah', 43));
-
-
-
-
-
-//let taskList = {
-//  taskList: [task],
-//  createTask(){},
-//};
+btnDelete.onclick = () => {
+  document.querySelector('.task').reset();
+  [...document.querySelectorAll('.new_div')].forEach(elem => elem.remove());
+};
