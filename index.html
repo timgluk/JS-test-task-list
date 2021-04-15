@@ -8,26 +8,27 @@
   <title>Document</title>
 </head>
 <body>
-  <form class="task">
-    <h1 class="title">Создание задачи</h1>
-    <input class="del" type="button" value="очистить">
-    <input class="task_name" type="text" placeholder="имя задачи" value="task">
-    <input class="create_subtask" type="button" value="добавить подзадачу">
-    <div id="div">
-    <!--<input class="subtask_name" type="text" placeholder="имя подзадачи" value="sub">
-    <input class="subtask_hours" type="text" placeholder="кол-во часов" value="50">
-    <input class="delete_subTask" type="button" value="удалить подзадачу">-->
+  <form class="section" id="task_name">
+    <div class="section__conteiner">
+      <h1 class="section__title">Создание задачи</h1>
+      <input class="section__button section__button_del" type="button" value="Начать новую задачу">
+      <input class="section__input section__input_task_name" type="text" placeholder="Имя задачи">
+      <input class="section__button section__button_create_subtask" type="button" value="добавить подзадачу">
     </div>
-    <input class="create_task" type="button" value="сохранить задачу">
+    <div id="div">
+    </div>
+    <input class="section__button section__button_create_task" type="button" value="сохранить задачу">
   </form>
-  <section>
-    <h1>Список задач</h1>
-    <ul id="task_list_title">
+
+  <section class="section">
+    <h1 class="section__title">Список созданных задач</h1>
+    <ul class="section__list" id="task_list_title">
 
     </ul>
   </section>
-  <section>
-    <h1 >Выбранная задача</h1>
+
+  <section class="section">
+    <h1 class="section__title">Выбранная задача</h1>
     <div class="subtask_list_title"></div>
   </section>
 </body>
