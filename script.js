@@ -71,11 +71,11 @@ function displayTask(task) {
   });
 };
 
-//taskList.forEach(displayTask);
+taskList.forEach(displayTask);
 
-//window.addEventListener('beforeunload', () => {
-//  localStorage.setItem('taskList', JSON.stringify(taskList));
-//});
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('taskList', JSON.stringify(taskList));
+});
 
 btnDelete.onclick = () => {
   document.getElementById('task_name').reset();
