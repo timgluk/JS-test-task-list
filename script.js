@@ -56,7 +56,7 @@ function createTask(title, subTaskTitles, subTaskHours) {
 function displayTask(task) {
   let listItem = document.createElement('li');
   listItem.className = 'list_item';
-  listItem.innerHTML = `<a href="#" onclick="event.preventDefault()">${task.title}</a>`;
+  listItem.innerHTML = `<a class="list_item__link" href="#" onclick="event.preventDefault()">${task.title}</a>`;
   putTolinkList.append(listItem);
   listItem.addEventListener('click', function() {
     let subTaskListTitle = document.querySelector('.subtask_list_title');
@@ -69,6 +69,14 @@ function displayTask(task) {
       </ul>`;
     subTaskListTitle.replaceWith(subTaskListScrin);
   });
+
+  console.log(taskList);
+
+  let dellItem = document.createElement('button');
+  dellItem.className = "dell-item";
+  dellItem.innerHTML = 'Удалить задачу';
+  dellItem.onclick = () => {taskList.splice(listItem.remove(), 1); dellItem.remove(); subTaskListTitle.remove();};
+  listItem.append(dellItem);
 };
 
 taskList.forEach(displayTask);
